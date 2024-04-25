@@ -1,7 +1,12 @@
 package main
 
-import "fmt"
+import (
+	"crypto/sha256"
+	"fmt"
+)
 
-func sha256() {
-	fmt.Println("empty")
+func hash_sha256(readfile []byte) {
+	hash := sha256.Sum256(readfile)
+	// fmt.Println("sha256", "%x", hash)
+	fmt.Println("sha256: " + fmt.Sprintf("%x", hash))
 }

@@ -1,15 +1,14 @@
 package main
 
 import (
-	"bufio"
-	"fmt"
+	"io"
 	"log"
 	"os"
 
 	"github.com/sqweek/dialog"
 )
 
-func FileRead() (readfile string, err error) {
+func FileRead() (readfile []byte) {
 	targetfile, err := dialog.File().Load()
 	if err != nil {
 		log.Fatal("File Read Error", err)
@@ -18,8 +17,12 @@ func FileRead() (readfile string, err error) {
 	if err != nil {
 		log.Fatal("File Open Error", err)
 	}
+
 	defer file.Close()
-	bf := bufio.NewReader(file)
-	fmt.Println(bf)
-	return bf, nil
+
+	readfile, err = io.ReadAll(file)
+	if err != nil {
+		log.Fatal("File Read Error", err)
+	}
+	return
 }
